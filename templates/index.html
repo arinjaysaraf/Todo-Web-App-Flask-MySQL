@@ -1,0 +1,53 @@
+{% extends 'base.html' %}
+
+{% block body %}
+<div class="main-container">
+    <h1>Welcome Humans !</h1>
+    <div class="main-form">
+        <form action="/" method="POST" id="form-content">
+            <label for="todo-title" class="form-label">Todo Title</label>
+            <input type="text" name="title" id="todo-title">
+
+            <label for="todo-desc" class="form-label">Todo Describe</label>
+            <input type="text" name="desc" id="todo-desc">
+        </form>
+        <button id="submit" form="form-content" type="submit">Add Todo</button>
+    </div>
+
+    <div class="table-container">
+        {% if allTodo|length==0 %}
+        <div class="zerodata">
+            Your list is empty || Add Some TODO's !!
+        </div>
+        {% else %}
+        <table class="table" align="centre">
+            <thead>
+                <tr>
+                    <th scope="col">SNo.</th>
+                    <th scope="col">Todo Title</th>
+                    <th scope="col">Description</th>
+                    <th scope="col">Time of Addition</th>
+                    <th scope="col">Actions</th>
+                </tr>
+            </thead>
+            <tbody>
+
+                {% for todo in allTodo %}
+                <tr>
+                    <th scope="row">{{loop.index}}</th>
+                    <td>{{todo.title}}</td>
+                    <td>{{todo.desc}}</td>
+                    <td>{{todo.date_created}}</td>
+                    <td>
+                        <a href="/update/{{todo.sno}}" type="button" class="action-button">Update</button>
+                        <a href="/delete/{{todo.sno}}" type="button" class="action-button-2">Delete</button>
+                    </td>
+                </tr>
+                {% endfor %}
+            </tbody>
+        </table>
+
+        {% endif %}
+    </div>
+</div>
+{% endblock body %}
